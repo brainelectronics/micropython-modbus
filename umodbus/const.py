@@ -104,6 +104,9 @@ FIXED_RESP_LEN = const(0x08)
 #: Modbus Application Protocol High Data Response length
 MBAP_HDR_LENGTH = const(0x07)
 
+#: Broadcast address
+BROADCAST_ADDR = const(0x00)
+
 #: CRC16 lookup table
 CRC16_TABLE = (
     0x0000, 0xC0C1, 0xC181, 0x0140, 0xC301, 0x03C0, 0x0280, 0xC241, 0xC601,
