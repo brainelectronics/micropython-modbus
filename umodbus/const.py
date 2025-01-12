@@ -137,6 +137,9 @@ CRC16_TABLE = (
     0x4100, 0x81C1, 0x8081, 0x4040
 )
 
+#: Broadcast address
+BROADCAST_ADDR = const(0x00)
+
 
 # Code to generate the CRC-16 lookup table:
 # def generate_crc16_table():

@@ -64,7 +64,7 @@ class ModbusRTU(Modbus):
                    parity=parity,
                    pins=pins,
                    ctrl_pin=ctrl_pin),
-            [addr]
+            [Const.BROADCAST_ADDR, addr]
         )
 
 
@@ -292,7 +292,7 @@ class Serial(CommonModbusFunctions):
     def _send_receive(self,
                       modbus_pdu: bytes,
                       slave_addr: int,
-                      count: bool) -> bytes:
+                      count: bool) -> bytes|None:
         """
         Send a modbus message and receive the reponse.
 
@@ -310,6 +310,10 @@ class Serial(CommonModbusFunctions):
         self._uart.read()
 
         self._send(modbus_pdu=modbus_pdu, slave_addr=slave_addr)
+
+        if slave_addr == Const.BROADCAST_ADDR:
+            # Do not wait for response after a broadcast
+            return None
 
         return self._validate_resp_hdr(response=self._uart_read(),
                                        slave_addr=slave_addr,
@@ -386,6 +390,11 @@ class Serial(CommonModbusFunctions):
         :param      signed:                 Indicates if signed
         :type       signed:                 bool
         """
+
+        if slave_addr == Const.BROADCAST_ADDR:
+            # Do not reply to broadcast messages
+            return
+
         modbus_pdu = functions.response(
             function_code=function_code,
             request_register_addr=request_register_addr,
