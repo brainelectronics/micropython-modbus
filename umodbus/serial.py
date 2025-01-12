@@ -292,7 +292,7 @@ class Serial(CommonModbusFunctions):
     def _send_receive(self,
                       modbus_pdu: bytes,
                       slave_addr: int,
-                      count: bool) -> bytes|None:
+                      count: bool) -> Union[bytes, None]:
         """
         Send a modbus message and receive the reponse.
 
