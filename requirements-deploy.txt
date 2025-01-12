@@ -1,5 +1,5 @@
 # List external packages here
 # Avoid fixed versions
 # # to upload package to PyPi or other package hosts
-twine>=4.0.1,<5
+twine==6.*
 changelog2version>=0.5.0,<1
